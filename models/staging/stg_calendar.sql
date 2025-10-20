@@ -5,7 +5,7 @@ with source as (
 renamed as (
     select
         listing_id,
-        date,
+        date as calendar_date,
         -- Convert t / f to a boolean
         try_to_boolean(available) as is_available,
         reservation_id,
