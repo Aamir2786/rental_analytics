@@ -39,3 +39,7 @@ models:
   rental_property_management:
     staging:
       +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
