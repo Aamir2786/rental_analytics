@@ -1,4 +1,4 @@
-# dbt Rental Data Analysis Project
+# dbt Rental Data Modeling Project
 
 This **dbt** (data build tool) project transforms raw data from a **Rental Property Management System** into a **Star Schema** optimized for analytical reporting and Business Intelligence (BI).
 
