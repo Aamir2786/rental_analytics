@@ -1,0 +1,65 @@
+models:
+  - name: stg_calendar
+    description: type-cast data from the raw calendar table.
+    columns:
+      - name: listing_id
+        description: Id for the listing (Part of composite primary key).
+      - name: calendar_date
+        description: The date of the snapshot (Part of composite primary key).
+      - name: is_available
+        description: Boolean flag (TRUE/FALSE) indicating listing availability.
+        data_tests:
+          - not_null
+      - name: reservation_id
+        description: Reservation identifier (NULL if not booked).
+  
+  - name: stg_listings
+    description: Cleansed and type-cast data from the raw listings table.
+    columns:
+      - name: listing_id
+        description: Primary key for the listing.
+        data_tests:
+          - unique
+          - not_null
+      - name: host_id
+        description: ID of the host.
+      - name: amenities
+        description: Amenities list parsed into a VARIANT array for efficient querying.
+
+  - name: stg_amenities_changelog
+    description: Cleansed and prepared changelog of amenities data.
+    columns:
+      - name: listing_id
+        description: The ID of the listing whose amenities were changed.
+        data_tests:
+          - not_null
+      - name: change_at
+        description: The timestamp when the amenity change was logged.
+        data_tests:
+          - not_null
+      - name: amenities
+        description: Amenities list parsed into a VARIANT array for efficient querying.
+        data_tests:
+          - not_null
+  
+  - name: stg_generated_reviews
+    description: Cleansed and prepared generated reviews data.
+    columns:
+      - name: review_id
+        description: Primary key for the review record.
+        data_tests:
+          - unique
+      - name: listing_id
+        description: The foreign key linking the review back to the listing.
+        data_tests:
+          - not_null
+      - name: review_date
+        description: The date the review was created.
+      - name: review_score
+        description: The review score given by the user.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
