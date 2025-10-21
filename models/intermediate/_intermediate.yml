@@ -1,0 +1,16 @@
+models:
+  - name: int_daily_amenities_extracted
+    description: Point-in-time model of a listing's amenities, joined to the calendar date.
+    columns:
+      - name: listing_id
+        description: Part of composite primary key.
+      - name: calendar_date
+        description: Part of composite primary key.
+        data_tests:
+          - not_null
+  
+  - name: int_listing_consecutive_stay_duration
+    description: Identifies continuous stay duration based on availability for each listing.
+    columns:
+      - name: consecutive_nights_based_on_availability
+        description: Consecutive nights a user can book based on availability (Need to consider maximum nights allowed by owner)

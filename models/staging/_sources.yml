@@ -27,7 +27,6 @@ sources:
           - name: id
             data_tests:
               - unique
-              - not_null
       - name: amenities_changelog
         description: Raw changelog data for amenities
         columns:

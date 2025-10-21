@@ -1,0 +1,32 @@
+models:
+  - name: dim_listings
+    description: Dimension table containing all descriptive attributes for a listing.
+    columns:
+      - name: listing_id
+        description: Primary key of the listing dimension.
+        data_tests:
+          - unique
+          - not_null
+      - name: host_id
+        description: Foreign key to dim_hosts.
+
+  - name: fct_daily_listing_snapshot
+    description: Daily snapshot fact table capturing price and availability events.
+    columns:
+      - name: calendar_date
+        description: Date of the snapshot.
+        data_tests:
+          - not_null
+      - name: listing_id
+        description: Foreign key to the dim_listings table.
+        data_tests:
+          - relationships:
+              arguments:
+                  to: ref('dim_listings')
+                  field: listing_id
+      - name: is_available
+        description: Availability flag for the day.
+      - name: price
+        description: The price per night.
+        data_tests:
+          - not_null
